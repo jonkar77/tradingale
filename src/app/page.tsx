@@ -1,51 +1,71 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Calendar from './components/Calendar/page';
 
-interface PageProps {
-    onSelect: (num: number) => void;
-}
+const YearScroller: React.FC = () => {
+    const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+    const minYear: number = 2000;
+    const maxYear: number = new Date().getFullYear(); // Set the maximum year to current year + 10
+    const yearStep: number = 1;
 
-const Page: React.FC<PageProps> = ({ onSelect }) => {
-    const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
-    // Function to handle number selection
-    const handleSelect = (num: number) => {
-        setSelectedNumber(num);
-        onSelect(num);
-    };
+    const handleScroll = () => {
+        if (containerRef.current) {
+            const containerWidth = containerRef.current.clientWidth;
+            const itemWidth = containerWidth / 3; // Assuming 3 items are visible in the window at a time
+            const scrollLeft = containerRef.current.scrollLeft;
+            const centerIndex = Math.floor((scrollLeft + itemWidth / 10) / itemWidth);
+            const centerYear = minYear + centerIndex * yearStep;
+            setSelectedYear(centerYear);
+            console.log(centerYear);
 
-    // Function to render number items
-    const renderNumbers = () => {
-        const numbers: JSX.Element[] = [];
-
-        // Generate numbers from 1 to 10
-        for (let i = 2000; i <= 2024; i++) {
-            numbers.push(
-                <div
-                    key={i}
-                    className={`number-item ${selectedNumber === i ? 'selected' : '   '}`}
-                    onClick={() => handleSelect(i)}
-                    style={{ marginRight: '10px' }}
-                >
-                    {i}
-                </div>
-            );
         }
-
-        return numbers;
     };
+    const handleSelectDate = (date: Date) => {
+        console.log('Selected date:', date);
+        // You can perform any actions here based on the selected date
+      };
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (container) {
+            container.addEventListener('scroll', handleScroll);
+            return () => {
+                container.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, []);
 
     return (
-        <div className='bg-offwhite h-[653px] flex items-center justify-center'>
-            <div className='bg-white px-[660px] py-[300px] rounded-lg'>
-                <div className="flex flex-row horizontal-number-picker">
-                    {renderNumbers()}
+        <div className='flex flex-col bg-green-100 rounded-md m-3 h-[629px]'>
+            <div className="flex justify-center p-2">
+                <div
+                    ref={containerRef}
+                    className="bg-white p-2 rounded-lg shadow-md m-1 w-96 overflow-x-scroll"
+                    style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+                >
+                    <div className="flex" style={{ minWidth: `${maxYear - minYear + 1}00%` }}>
+                        {Array.from({ length: maxYear - minYear + 1 }, (_, index) => {
+                            const year = minYear + index;
+                            return (
+                                <div
+                                    key={year}
+                                    className={`flex-shrink-0 flex items-center justify-center w-32 h-8 border border-gray-300 rounded-lg mr-2 ${year === selectedYear ? 'bg-teal-600 text-white' : ''}`}
+                                    onClick={() => setSelectedYear(year)}
+                                >
+                                    {year}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-                {/* Content */}
-                Landing
+            </div>
+            <div>
+                <Calendar onSelectDate={handleSelectDate}/>
             </div>
         </div>
     );
 };
 
-export default Page;
+export default YearScroller;
