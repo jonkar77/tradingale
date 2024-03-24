@@ -93,7 +93,7 @@ export default function LoginPage() {
             </div>
         ) : (
             <div>
-                {router.push('/')}
+                router.push('/')
             </div>
         )
     );
