@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import Sidebar from "../components/Sidebar/page";
+import BarChart from "../components/Analytics/BarGraph/page";
 
 export default function ProfilePage() {
   const [data, setData] = useState("nothing");
@@ -20,23 +21,25 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex flex-col flex-1 items-center justify-center h-screen py-2">
-        <h1>Profile</h1>
-        <hr />
-        <p>Profile page</p>
-        <h2 className="p-1 rounded bg-green-500">
-          {data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}</Link>}
-        </h2>
-        <hr />
-        <button
-          onClick={getUserDetails}
-          className="bg-green-800 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          GetUser Details
-        </button>
+      <div className="w-screen">
+      <div className="ml-10 grid grid-cols-2 grid-rows-2 h-screen">
+      <div className="flex items-center justify-center col-span-1 row-span-1">
+        <BarChart />
       </div>
+      <div className="flex items-center justify-center col-span-1 row-span-1">
+        <BarChart />
+      </div>
+      <div className="flex items-center justify-center col-span-1 row-span-1">
+        <BarChart />
+      </div>
+      <div className="flex items-center justify-center col-span-1 row-span-1">
+        <BarChart />
+      </div>
+    </div>
+      </div>
+
     </div>
   );
 }

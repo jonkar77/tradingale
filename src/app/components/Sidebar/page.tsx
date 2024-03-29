@@ -1,62 +1,62 @@
 import React, { useState } from 'react';
 import { Sidebar } from 'flowbite-react';
+import { FaMobileScreenButton } from 'react-icons/fa6';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
-import { FaAlignRight } from 'react-icons/fa6';
 
 function Component() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState("Dashboard"); // Default active item
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleItemClick = (itemName:any) => {
+    setActiveItem(itemName);
+    // Add logic for navigation or other actions based on the clicked item
+  };
+
+  interface MenuItem {
+    path: string;
+    name: string;
+    icon: React.ElementType;
+  }
+
+  const data: MenuItem[] = [
+    { path: "#", name: "Dashboard", icon: HiChartPie },
+    { path: "#", name: "Kanban", icon: HiViewBoards },
+    { path: "#", name: "Inbox", icon: HiInbox },
+    { path: "#", name: "Users", icon: HiUser },
+    { path: "#", name: "Products", icon: HiShoppingBag },
+  ];
+
   return (
-    <div className='bg-teal-600 p-2'>
-      <button onClick={toggleSidebar} className='text-white'><FaAlignRight /></button>
-      {isSidebarOpen && (
-        <Sidebar aria-label="Default sidebar example">
-          <Sidebar.Items>
-            <div className='w-[250px]'>
-            <Sidebar.ItemGroup>
-            <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiChartPie} iconColor="teal-100">
-                  Dashboard
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiViewBoards} label="Pro" labelColor="dark" iconColor="teal-100">
-                  Kanban
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiInbox} label="3" iconColor="black">
-                  Inbox
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiUser} iconColor="teal-100">
-                  Users
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiShoppingBag} iconColor="teal-100">
-                  Products
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiArrowSmRight} iconColor="teal-100">
-                  Sign In
-                </Sidebar.Item>
-              </div>
-              <div className="mt-2">
-                <Sidebar.Item href="#" icon={HiTable} iconColor="teal-100">
-                  Sign Up
-                </Sidebar.Item>
-              </div>
-            </Sidebar.ItemGroup>
+    <div className='bg-teal-600 p-2' style={{ width: isSidebarOpen ? '220px' : '55px', transition: 'width 0.4s ease-out' }}>
+      <button onClick={toggleSidebar} className='ml-2'><FaMobileScreenButton /></button>
+      {!isSidebarOpen &&(
+        <div className='mt-10'>
+        {data.map((item, index) => (
+          <div key={index} className={`p-2 mt-3 rounded-lg  hover:bg-white cursor-pointer ${activeItem === item.name ? 'bg-white text-red-500' : ''}`} onClick={() => handleItemClick(item.name)}>
+            <div>
+                <div className='mr-3'><item.icon size={24} /></div>
             </div>
-          </Sidebar.Items>
-        </Sidebar>
+          </div>
+        ))}
+      </div>
+      )}
+      {isSidebarOpen && (
+        <div className='mt-10'>
+          {data.map((item, index) => (
+            <div key={index} className={`p-2 mt-3 rounded-lg  hover:bg-white hover:text-black cursor-pointer ${activeItem === item.name ? 'bg-white text-black' : ''}`} onClick={() => handleItemClick(item.name)}>
+              <div>
+                <div className='flex flex-row'>
+                  <div className='mr-3'><item.icon size={24} /></div>
+                  {item.name}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
