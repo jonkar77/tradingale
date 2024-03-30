@@ -38,11 +38,11 @@ const YearScroller: React.FC = () => {
     }, []);
 
     return (
-        <div className='flex flex-col bg-green-100 rounded-md m-3 h-[629px]'>
+        <div className='flex flex-col bg-green-100 rounded-md m-2 h-[629px]'>
             <div className="flex justify-center p-2">
                 <div
                     ref={containerRef}
-                    className="bg-white p-2 rounded-lg shadow-md m-1 w-96 overflow-x-scroll"
+                    className="bg-white p-2 rounded-2xl shadow-md m-1 w-96 overflow-x-scroll"
                     style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
                 >
                     <div className="flex" style={{ minWidth: `${maxYear - minYear + 1}00%` }}>
@@ -51,7 +51,7 @@ const YearScroller: React.FC = () => {
                             return (
                                 <div
                                     key={year}
-                                    className={`flex-shrink-0 flex items-center justify-center w-32 h-8 border border-gray-300 rounded-lg mr-2 ${year === selectedYear ? 'bg-teal-600 text-white' : ''}`}
+                                    className={`flex-shrink-0 flex items-center justify-center w-32 h-5 border border-gray-300 rounded-xl mr-2 ${year === selectedYear ? 'bg-teal-600 text-white shadow-md shadow-teal-300' : ''}`}
                                     onClick={() => setSelectedYear(year)}
                                 >
                                     {year}
