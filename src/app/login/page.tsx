@@ -7,9 +7,6 @@ import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 
 
-
-
-
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
@@ -97,7 +94,5 @@ export default function LoginPage() {
             </div>
         )
     );
-    
-
 
 }

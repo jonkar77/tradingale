@@ -43,7 +43,7 @@ const YearScroller: React.FC = () => {
                 <div
                     ref={containerRef}
                     className="bg-white p-2 rounded-2xl shadow-md m-1 w-96 overflow-x-scroll"
-                    style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+                    style={{ scrollbarWidth: 'none' , WebkitOverflowScrolling: 'touch' }}
                 >
                     <div className="flex" style={{ minWidth: `${maxYear - minYear + 1}00%` }}>
                         {Array.from({ length: maxYear - minYear + 1 }, (_, index) => {
