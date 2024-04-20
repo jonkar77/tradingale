@@ -49,7 +49,7 @@ const Calendar: React.FC<CalendarProps> = ({ year, onSelectDate }) => {
                 return (
                   <div
                     key={day}
-                    className={`text-sm text-center m-[1px] py-1 cursor-pointer border rounded ${isPastDate ? 'opacity-50 pointer-events-none' : 'shadow-2xl hover:border-black'} ${currentDate.getDate() === day && currentDate.getMonth() === index ? 'font-bold border-black text-black' : ''}`}
+                    className={`text-sm text-center m-[1px] py-1 cursor-pointer border rounded ${isPastDate ? 'opacity-50 pointer-events-none' : 'shadow-2xl hover:border-black'} ${currentDate.getDate() === day && currentDate.getMonth() === index && currentDate.getFullYear() === year ? 'font-bold border-black text-black' : ''}`}
                     onClick={() => isPastDate ? null : handleClickDate(new Date(year, index, day))}
                   >
                     <div>{day}</div>

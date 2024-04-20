@@ -23,7 +23,6 @@ const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
   const [exitTime, setExitTime] = useState('12:00');
   const [description, setDescription] = useState('');
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
-  const [isExpanded, setIsExpanded] = useState(false);
   const  [isOpen, setIsOpen] = useState(true);
 
 

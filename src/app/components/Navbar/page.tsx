@@ -4,6 +4,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { FaCalendarDays } from "react-icons/fa6";
 import { useState } from 'react';
 import axios from 'axios';
+
 import { useRouter } from 'next/navigation';
 
 interface NavbarProps {
@@ -31,8 +32,9 @@ const Navbar: React.FC<NavbarProps> = () => {
             // toast.error(error.message)
         }
     }
-
+     
     return (
+        
         <nav className="flex justify-between items-center py-4 px-8 bg-teal-600 text-white">
             {/* Left side: Logo */}
             <div>
@@ -69,6 +71,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </div>
             </div>
         </nav>
+      
+
     );
 };
 

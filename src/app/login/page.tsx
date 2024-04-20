@@ -40,7 +40,9 @@ export default function LoginPage() {
             setButtonDisabled(true);
         }
     }, [user]);
+
     const isLoggedIn = Cookies.get('token');
+  
 
     return (
         !isLoggedIn ? (
@@ -90,7 +92,7 @@ export default function LoginPage() {
             </div>
         ) : (
             <div>
-                router.push('/')
+                router.push(/)
             </div>
         )
     );

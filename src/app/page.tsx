@@ -38,10 +38,10 @@ const YearScroller: React.FC = () => {
                 <TradeDetails onClose={() => setShowModal(false)} />}
             <div className="flex p-2">
                 <div className="flex justify-around">
-                    <button onClick={handlePrevYear}>&lt;</button>
-                    <div className='px-3'>{currentYear}</div>
-                    <button onClick={handleNextYear}>&gt;</button>
-                </div>
+                    <button className='border border-black px-1' onClick={handlePrevYear}>&lt;</button>
+                    <div className='mx-2'>{currentYear}</div>
+                    <button className='border px-1 border-black' onClick={handleNextYear}>&gt;</button>
+                    </div>
             </div>
             <div>
                 <Calendar year={currentYear} onSelectDate={handleSelectDate} />
