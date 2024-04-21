@@ -1,65 +1,69 @@
 'use client'
-// Import icons with correct paths
-import React, { useState } from 'react';
-import { FaMobileScreenButton } from 'react-icons/fa6';
-import { HiChartPie, HiOutlineNewspaper, HiViewBoards } from 'react-icons/hi';
-import Link from 'next/link';
+// Import necessary modules and components
+import { ChevronFirst, ChevronLast } from "lucide-react";
+import { createContext, useContext, useState } from "react";
+import Link from "next/link";
 
-// Declare the type of the menuItems prop
-interface Props {
-  menuItems: MenuItem[];
+// Declare the type of the context value
+interface SidebarContextType {
+  expanded: boolean;
+  activePath: string; // Add activePath to store the active path
+  setActivePath: (path: string) => void; // Add setActivePath to update active path
 }
 
-function Component({ menuItems }: Props) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activeItem, setActiveItem] = useState('Dashboard'); // Default active item
+// Create the context
+const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+export default function Sidebar() {
+  const [expanded, setExpanded] = useState(true);
+  const [activePath, setActivePath] = useState(""); // State to track active path
 
-  const handleItemClick = (itemName: string) => {
-    setActiveItem(itemName);
-    // Add logic for navigation or other actions based on the clicked item
-  };
+  // Data object with icons and paths
+  const menuItems = [
+    { text: "Dashboard", icon: <ChevronFirst />, path: "/profile/dashboard" },
+    { text: "Feed", icon: <ChevronLast />, path: "/profile/feed" },
+    { text: "Account", icon: <ChevronLast />, path: "/profile/account" },
+    // Add more items as needed
+  ];
 
-  interface MenuItem {
-    path: string;
-    name: string;
-    icon: React.ElementType;
-  }
-
-  // Use the menuItems prop directly, no need to redefine data inside the component
   return (
-    <div className='bg-teal-600 p-2' style={{ width: isSidebarOpen ? '220px' : '55px', transition: 'width 0.4s ease-out' }}>
-      <button onClick={toggleSidebar} className='ml-2'><FaMobileScreenButton /></button>
-      {!isSidebarOpen && (
-        <div className='mt-10'>
-          {menuItems.map((item, index) => (
-            <div key={index} className={`p-2 mt-3 rounded-lg  hover:bg-white cursor-pointer ${activeItem === item.name ? 'bg-white text-red-500' : ''}`} onClick={() => handleItemClick(item.name)}>
-              <Link href={item.path}>
-                <div className='mr-3'><item.icon size={24} /></div>
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
-      {isSidebarOpen && (
-        <div className='mt-10'>
-          {menuItems.map((item, index) => (
-            <div key={index} className={`p-2 mt-3 rounded-lg  hover:bg-white hover:text-black cursor-pointer ${activeItem === item.name ? 'bg-white text-black' : ''}`} onClick={() => handleItemClick(item.name)}>
-              <Link href={item.path}>
-                <div className='flex flex-row'>
-                  <div className='mr-3'><item.icon size={24} /></div>
-                  {item.name}
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <SidebarContext.Provider value={{ expanded, activePath, setActivePath }}>
+      <aside className="h-screen">
+        <nav className="h-full flex flex-col bg-teal-600 border-r shadow-sm">
+          <div className="p-4 pb-2 flex justify-between items-center">
+            <button onClick={() => setExpanded((curr) => !curr)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
+              {expanded ? <ChevronFirst /> : <ChevronLast />}
+            </button>
+          </div>
+
+          <ul className="flex-1 px-3">
+            {/* Render SidebarItems based on the menuItems data */}
+            {menuItems.map((item, index) => (
+              <SidebarItem key={index} text={item.text} icon={item.icon} path={item.path} />
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    </SidebarContext.Provider>
   );
 }
 
-export default Component;
+// Define the SidebarItem component
+export function SidebarItem({ icon, text, path }: { icon: JSX.Element; text: string; path: string }) {
+  const { expanded, activePath, setActivePath } = useContext(SidebarContext) as SidebarContextType;
+  const isActive = activePath === path;
+
+  const handleClick = () => {
+    setActivePath(path); // Update active path on click
+  };
+
+  return (
+    <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group hover:bg-indigo-50 text-gray-600 ${isActive ? "bg-indigo-100 text-indigo-800" : ""}`} onClick={handleClick}>
+      <Link href={path} passHref
+        className="flex items-center">
+          {icon}
+          <span className={`overflow-hidden transition-all ${expanded ? "w-[150px] ml-1" : "w-0"}`}>{text}</span>
+      </Link>
+    </li>
+  );
+}

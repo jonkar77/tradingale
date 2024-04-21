@@ -21,6 +21,7 @@
     "framer-motion": "^11.0.20",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.372.0",
     "mongoose": "^8.2.2",
     "next": "14.1.4",
     "nodemailer": "^6.9.13",

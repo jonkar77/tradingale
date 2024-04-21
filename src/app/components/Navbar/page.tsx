@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     return (
         
         <nav className="flex justify-between items-center py-4 px-8 bg-teal-600 text-white">
-            {/* Left side: Logo */}
+            
             <div>
                 <Link href="/" className="text-2xl font-bold">TradingGale</Link>
             </div>
@@ -54,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                     {isDropdownOpen && (
                         <div className="absolute right-0 z-50 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
                             <div className="py-1">
-                                <Link href="/profile">
+                                <Link href="/profile/dashboard">
                                     <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Profile
                                     </span>
