@@ -60,7 +60,7 @@ const BarChart: React.FC = () => {
   return (
     <div>
       <h2>Bar Chart Example</h2>
-      <canvas ref={chartContainer} style={{ height: '180px', width: '400px' }} />
+      <canvas ref={chartContainer} style={{ height: '200px', width: '450px' }} />
     </div>
   );
 };

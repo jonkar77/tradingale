@@ -41,8 +41,8 @@ export default function Sidebar() {
     <SidebarContext.Provider value={{ expanded, activePath, setActivePath }}>
       <aside className={`h-screen`}>
         <nav className="h-full flex flex-col bg-teal-600 border-r shadow-sm">
-          <div className="p-4 pb-2 flex justify-between items-center">
-            <button onClick={() => setExpanded((curr) => !curr)} className="pl-3 rounded-lg">
+          <div className="p-4 pb-2 flex justify-between items-center ">
+            <button onClick={() => setExpanded((curr) => !curr)} className="px-3 py-1 rounded-full bg-neutral-200">
               {expanded ? <RiSkipLeftLine size={18} />
                 : <AiOutlineMenuUnfold />
               }
