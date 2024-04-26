@@ -19,7 +19,7 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export default function Sidebar() {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [activePath, setActivePath] = useState(""); // State to track active path
   // Get the current path name
 
@@ -39,7 +39,7 @@ export default function Sidebar() {
 
   return (
     <SidebarContext.Provider value={{ expanded, activePath, setActivePath }}>
-      <aside className="h-screen">
+      <aside className={`h-screen`}>
         <nav className="h-full flex flex-col bg-teal-600 border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
             <button onClick={() => setExpanded((curr) => !curr)} className="pl-3 rounded-lg">
@@ -50,7 +50,7 @@ export default function Sidebar() {
           </div>
           <div className="mt-5">
 
-            <ul className="flex-1 px-3">
+            <ul className="flex-1 px-3 space-y-3">
               {/* Render SidebarItems based on the menuItems data */}
               {menuItems.map((item, index) => (
                 <SidebarItem key={index} text={item.text} icon={item.icon} path={item.path} />
@@ -75,11 +75,12 @@ export function SidebarItem({ icon, text, path }: { icon: JSX.Element; text: str
 
   return (
     <div>
-      <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group hover:bg-indigo-50 text-gray-600 ${isActive ? "bg-indigo-100 text-indigo-800" : ""}`} onClick={handleClick}>
+      
+      <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group hover:bg-black text-white ${isActive ? "bg-black text-white" : ""}`} onClick={handleClick}>
         <Link href={path} passHref
           className="flex items-center">
-          {icon}
-          <span className={`overflow-hidden transition-all ${expanded ? "w-[150px] ml-1" : "w-0"}`}>{text}</span>
+          <div className={expanded ? "mr-2" : ""}>{icon}</div>
+          <div className={`overflow-hidden transition-all duration-200 ${expanded ? "w-[130px] ml-1 " : "w-0"}`}>{text}</div>
         </Link>
       </li>
     </div>
