@@ -13,7 +13,7 @@ interface ModalFormProps {
   content: string;
   isOpen: boolean;
 }
-
+// kjbk
 const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
   const [tradeType, setTradeType] = useState('');
   const [scripName, setScripName] = useState('');
