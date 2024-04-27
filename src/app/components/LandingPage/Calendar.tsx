@@ -1,22 +1,25 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
+import TradeDetails from '../modal/TradeDetails/page';
 
 interface CalendarProps {
   onSelectDate: (date: Date) => void;
   year: number;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ year, onSelectDate }) => {
+const Calendar: React.FC<CalendarProps> = ({ year }) => {
   const months = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
     'September', 'October', 'November', 'December'
   ];
+  var [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const handleClickDate = (date: Date) => {
-    onSelectDate(date);
-    
+    setSelectedDate(date);
+    console.log('Selected Date:', date);
   };
 
   const getEmptyCells = (numEmptyCells: number) => {
@@ -26,9 +29,19 @@ const Calendar: React.FC<CalendarProps> = ({ year, onSelectDate }) => {
     }
     return emptyCells;
   };
+  const onClose = () => {
+    //close it temporary
+    setSelectedDate(null);
+};
+const submitHandler = () => {
+  //close it temporary
+  setSelectedDate(null);
+};
 
   return (
     <div className="grid grid-cols-6 gap-1 p-1">
+     {selectedDate && <TradeDetails onClose={onClose} submitHandler={submitHandler}/>}
+
       {months.map((month, index) => {
         const firstDayOfMonth = new Date(year, index, 1).getDay(); // Get the day of the week for the first day of the month
         const emptyCells = getEmptyCells(firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1); // Adjust for Sunday being index 0
