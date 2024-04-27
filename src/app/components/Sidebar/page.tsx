@@ -80,7 +80,7 @@ export function SidebarItem({ icon, text, path }: { icon: JSX.Element; text: str
         <Link href={path} passHref
           className="flex items-center">
           <div className={expanded ? "mr-2" : ""}>{icon}</div>
-          <div className={`overflow-hidden transition-all duration-200 ${expanded ? "w-[130px] ml-1 " : "w-0"}`}>{text}</div>
+          <div className={`overflow-hidden transition-all ${expanded ? "w-[130px] ml-1 " :  "w-0"}`}>{text}</div>
         </Link>
       </li>
     </div>

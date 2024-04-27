@@ -6,21 +6,19 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { Dialog } from '@mui/material';
 
 interface ModalFormProps {
   onClose: () => void;
-  id: number;
-  content: string;
-  isOpen: boolean;
+  // id: number;
+  // content: string;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
 }
-
-const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
+const TradeDetails: React.FC<ModalFormProps> = ({onClose, submitHandler}) => {
   const [tradeType, setTradeType] = useState('');
   const [scripName, setScripName] = useState('');
   const [buyValue, setBuyValue] = useState('');
   const [sellValue, setSellValue] = useState('');
-  const [entryTime, setEntryTime] = useState('12:00');
-  const [exitTime, setExitTime] = useState('12:00');
   const [description, setDescription] = useState('');
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
   const  [isOpen, setIsOpen] = useState(true);
@@ -42,7 +40,7 @@ const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
 
 
   return (
-    isOpen && (
+    <Dialog open={isOpen}>
       <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg max-w-xl w-full">
         <h2 className="text-lg font-semibold mb-4">Trade Details</h2>
@@ -57,12 +55,10 @@ const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
             <button onClick={() => setItems(items.filter(i => i.id !== item.id))}>
               x
             </button>
-
-
           </div>
-
           {openItemId === item.id && (
             <div>
+              
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <div>
                   <label htmlFor="tradeType">Instrument Type</label>
@@ -142,6 +138,7 @@ const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
           )}
             </div>
 ))}
+
         <div className="flex justify-center items-center">
           <button className="flex items-center space-x-2 text-blue-600" onClick={handleAddTrade}>
             <MdAddCircleOutline />
@@ -149,16 +146,16 @@ const TradeDetails: React.FC<ModalFormProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="flex justify-end mt-4">
-          <button className="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-4" onClick={()=>setIsOpen(false)}>
+          <button className="px-4 py-2 bg-gray-200 text-gray-800 rounded mr-4" onClick={onClose}>
             Cancel
           </button>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded">
+          <button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={submitHandler}>
             Done
           </button>
         </div>
       </div>
     </div>
-    )
+    </Dialog>
 
   );
 };
