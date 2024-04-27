@@ -56,8 +56,9 @@ const TradeDetails: React.FC<ModalFormProps> = ({onClose, submitHandler}) => {
               x
             </button>
           </div>
-
+          {openItemId === item.id && (
             <div>
+              
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <div>
                   <label htmlFor="tradeType">Instrument Type</label>
@@ -134,8 +135,10 @@ const TradeDetails: React.FC<ModalFormProps> = ({onClose, submitHandler}) => {
                 ></textarea>
               </div>
             </div>
+          )}
             </div>
 ))}
+
         <div className="flex justify-center items-center">
           <button className="flex items-center space-x-2 text-blue-600" onClick={handleAddTrade}>
             <MdAddCircleOutline />
