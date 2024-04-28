@@ -44,7 +44,7 @@ export default function Sidebar() {
           <div className="p-4 pb-2 flex justify-between items-center ">
             <button onClick={() => setExpanded((curr) => !curr)} className="px-3 py-1 rounded-full bg-neutral-200">
               {expanded ? <RiSkipLeftLine size={18} />
-                : <AiOutlineMenuUnfold />
+                : <AiOutlineMenuUnfold size={18}/>
               }
             </button>
           </div>
@@ -75,12 +75,17 @@ export function SidebarItem({ icon, text, path }: { icon: JSX.Element; text: str
 
   return (
     <div>
-      
-      <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group hover:bg-black text-white ${isActive ? "bg-black text-white" : ""}`} onClick={handleClick}>
+
+      <li>
         <Link href={path} passHref
           className="flex items-center">
-          <div className={expanded ? "mr-2" : ""}>{icon}</div>
-          <div className={`overflow-hidden transition-all ${expanded ? "w-[130px] ml-1 " :  "w-0"}`}>{text}</div>
+          <div className={`relative flex items-center py-2 px-3 font-medium rounded-md cursor-pointer transition-colors group hover:bg-black text-white ${isActive ? "bg-black text-white" : ""}`} onClick={handleClick}>
+            <div className={expanded ? "mr-2" : ""}>{icon}</div>
+            <div className={`overflow-hidden transition-all ${expanded ? "w-[130px] ml-1 animate-slideIn" : "w-0 animate-slideOut"}`}>
+              {text}
+            </div>
+
+          </div>
         </Link>
       </li>
     </div>

@@ -2,8 +2,8 @@ import React from 'react'
 
 const Post = () => {
     return (
-            <div className="flex flex-col ">
-                <section className="bg-white rounded-lg shadow-md p-4 mb-6">
+            <div className="flex flex-col">
+                <section className="bg-white rounded-lg shadow-md p-4 mb-3">
                     <h2 className="text-xl font-semibold mb-4">Community Feed</h2>
 
                     {/* Sample Post */}
