@@ -19,7 +19,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "target": "es2015", // Added this line
+    "downlevelIteration": true // Added this line
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Sidebar/page.tsx"],
   "exclude": ["node_modules"]

@@ -11,14 +11,25 @@ const Biscuit = () => {
     const stocksInNews = [
         { name: 'Jane Doe', avatar: '/user-avatar.jpg' },
         { name: 'Adam Smith', avatar: '/user-avatar.jpg' },
+        { name: 'Emily Brown', avatar: '/user-avatar.jpg' },
+        { name: 'Jane Doe', avatar: '/user-avatar.jpg' },
+        // { name: 'Adam Smith', avatar: '/user-avatar.jpg' },
+        // { name: 'Emily Brown', avatar: '/user-avatar.jpg' },
+        // { name: 'Emily Brown', avatar: '/user-avatar.jpg' },
+        // { name: 'Jane Doe', avatar: '/user-avatar.jpg' },
+        // { name: 'Adam Smith', avatar: '/user-avatar.jpg' },
+        // { name: 'Emily Brown', avatar: '/user-avatar.jpg' },
+        // { name: 'Emily Brown', avatar: '/user-avatar.jpg' },
+        // { name: 'Jane Doe', avatar: '/user-avatar.jpg' },
+        // { name: 'Adam Smith', avatar: '/user-avatar.jpg' },
         { name: 'Emily Brown', avatar: '/user-avatar.jpg' }
     ];
 
     return (
         <div>
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-3 mr-3">
                 {/* Sidebar Section for Trending Cryptocurrencies */}
-                <aside className="bg-white rounded-lg shadow-md p-4 mb-6">
+                <aside className="bg-white rounded-lg shadow-md p-4 mb-2">
                     {/* Sidebar content */}
                     <div className="border-b border-gray-200 pb-4 mb-4">
                         <h2 className="text-lg font-semibold mb-2">Trending Cryptocurrencies</h2>
@@ -31,9 +42,8 @@ const Biscuit = () => {
                         ))}
                     </div>
                 </aside>
-
                 {/* Another Sidebar Section for Stocks in News */}
-                <aside className="bg-white rounded-lg shadow-md p-4 mb-6">
+                <aside className="bg-white rounded-lg shadow-md p-4">
                     {/* Sidebar content */}
                     <div className="border-b border-gray-200 pb-4 mb-4">
                         <h2 className="text-lg font-semibold mb-2">Stocks in News</h2>
