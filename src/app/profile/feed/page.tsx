@@ -19,7 +19,7 @@ const HalfPageScrollable: React.FC = () => {
             <div className={`w-2/3 overflow-y-scroll no-scrollbar p-4`}>
               <Post />
             </div>
-            <div className={`w-1/3 p-4`}>
+            <div className={`w-1/3 p-2`}>
               <Biscuit />
             </div>
           </div>
