@@ -7,7 +7,8 @@ export async function GET() {
   let imagesArray = [];
 
   // Add a cache-busting query parameter to the URL
-  const res = await fetch('https://economictimes.indiatimes.com/markets/stocks/news?from=mdr&_cacheBuster=' + Date.now());
+  const res = await 
+  fetch('https://economictimes.indiatimes.com/markets/stocks/news?from=mdr&_cacheBuster=' + Date.now());
   const html = await res.text();
   const dom = new JSDOM(html);
   const document = dom.window.document;

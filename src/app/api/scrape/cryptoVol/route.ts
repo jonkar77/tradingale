@@ -3,12 +3,9 @@ import { JSDOM } from 'jsdom';
 
 export async function GET() {
   try {
-    // Initialize arrays as empty
-    let linksArray = [];
-    let imagesArray = [];
 
     // Add a cache-busting query parameter to the URL
-    const res = await fetch('https://in.tradingview.com/markets/cryptocurrencies/prices-most-traded/');
+    const res = await fetch('https://in.tradingview.com/markets/cryptocurrencies/prices-most-traded');
     const html = await res.text();
     const dom = new JSDOM(html);
     const document = dom.window.document;

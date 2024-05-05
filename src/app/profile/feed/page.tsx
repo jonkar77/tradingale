@@ -10,13 +10,13 @@ const HalfPageScrollable: React.FC = () => {
 
 
   return (
-    <div className='relative overflow-hidden'>
+    <div className='relative overflow-hidden h-screen'>
       <div className='flex'>
         <div><Sidebar /></div>
         <div className='bg-gray-200 w-screen'>
           <div><Topline /></div>
-          <div className="mt-3 flex flex-row justify-around h-[650px]">
-            <div className={`w-2/3 overflow-y-scroll no-scrollbar p-4`}>
+          <div className="mt-0 flex flex-row justify-around h-[600px]">
+            <div className={`w-2/3 p-2`}>
               <Post />
             </div>
             <div className={`w-1/3 p-2`}>
