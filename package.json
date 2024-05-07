@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@edgestore/server": "^0.1.6",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@material-tailwind/react": "^2.1.9",
@@ -19,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.2",
     "cheerio": "^1.0.0-rc.12",
+    "cloudinary": "^2.2.0",
     "dayjs": "^1.11.10",
     "flowbite-react": "^0.7.5",
     "framer-motion": "^11.0.20",
@@ -27,6 +29,8 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.372.0",
     "mongoose": "^8.2.2",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "next": "14.1.4",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.13",
@@ -44,6 +48,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/jsdom": "^21.1.6",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",

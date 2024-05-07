@@ -1,36 +1,57 @@
-import React, { useState } from 'react';
+// src/components/ImagePicker.tsx
+'use client';
+
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
 const Notes = ({ open, toggler }) => {
-    const [image, setImage] = useState(null); // Initialize image state as null
-    const [description, setDescription] = useState('');
+
 
     const handleCancel = () => {
-        setImage(null); // Reset image state to null
+        setImageUrl(''); // Reset image state to null
         setDescription('');
         toggler();
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [description, setDescription] = useState<string>('');
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-        const formData = {image, description};
-        console.log(formData);
-        
-
-        try {
-            const res = await axios.post('http://localhost:3000/api/users/post', formData);
-            console.log(res);
-            if (res.status === 200) {
-                console.log('Yeai!');
-            } else {
-                console.log('Oops! Something is wrong.');
-            }
-        } catch (error) {
-            console.log(error);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImageUrl(imageUrl);
         }
+    };
 
-        toggler();
+    const handleUpload = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', fileInputRef.current?.files?.[0] as File);
+        formData.append('description', description);
+
+        fetch('/api/users/post', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('File uploaded successfully');
+                } else {
+                    console.error('Failed to upload file');
+                }
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+            });
     };
 
     return (
@@ -38,22 +59,26 @@ const Notes = ({ open, toggler }) => {
             <div className="bg-white p-4 rounded-lg modal-container">
                 {/* Notes modal content */}
                 <h2 className="text-lg font-semibold mb-2">Write Notes</h2>
-                <form onSubmit={handleSubmit}>
-                    {/* Upload Image Field */}
+                <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
+                    <label htmlFor="fileInput" className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600">
+                        Select Image
+                        <input
+                            id="fileInput"
+                            type="file"
+                            accept='image/*'
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            className="sr-only"
+                        />
+                    </label>
                     <input
-                        type="file"
-                        className="mb-2"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
-                    {/* Description Field */}
-                    <textarea
-                        className="w-full h-24 border border-gray-300 rounded-md p-2 mb-2"
-                        placeholder="Enter description"
+                        type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                    {/* Buttons */}
+                        placeholder="Enter description"
+                        className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500"
+                    />
+                    
                     <div className="flex justify-end">
                         <button type="submit" className="bg-teal-500 text-white py-2 px-4 rounded-md mr-2">
                             Submit
@@ -63,9 +88,56 @@ const Notes = ({ open, toggler }) => {
                         </button>
                     </div>
                 </form>
+
+
             </div>
         </div>
     );
 };
 
 export default Notes;
+
+
+
+
+
+// const [imageUrl, setImageUrl] = useState<string | null>(null);
+// const [description, setDescription] = useState<string>('');
+// const fileInputRef = useRef<HTMLInputElement>(null);
+
+// const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = event.target.files?.[0];
+//     if (file) {
+//         const imageUrl = URL.createObjectURL(file);
+//         setImageUrl(imageUrl);
+//     }
+// };
+
+// const handleUpload = () => {
+//     if (fileInputRef.current) {
+//         fileInputRef.current.click();
+//     }
+// };
+
+// const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+
+//     const formData = new FormData();
+//     formData.append('file', fileInputRef.current?.files?.[0] as File);
+//     formData.append('description', description);
+
+//     fetch('/api/users/post', {
+//         method: 'POST',
+//         body: formData,
+//     })
+//         .then(response => {
+//             if (response.ok) {
+//                 console.log('File uploaded successfully');
+//             } else {
+//                 console.error('Failed to upload file');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error uploading file:', error);
+//         });
+// };
