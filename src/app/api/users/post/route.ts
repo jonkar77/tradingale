@@ -1,23 +1,46 @@
 // src/app/api/upload/route.ts
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
+
+import Post from '@/models/post/userPost';
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
-  const file = formData.get('file');
-
-  if (file instanceof File) {
-    const filePath = path.join(process.cwd(), 'public', file.name);
+    const formData = await request.formData();
+    const file = formData.get('file');
+    const description = formData.get('description');
+  
+    if (file instanceof File && typeof description === 'string') {
+        // Read the file buffer
+        const fileBuffer = await file.arrayBuffer();
+        
+        // Convert the file buffer to a string
+        const fileString = Buffer.from(fileBuffer).toString('base64');
+        
+        // Upload the file string to Cloudinary
+        const uploadResult = await cloudinary.uploader.upload(`data:${file.type};base64,${fileString}`, {
+            folder: 'posts',
+            resource_type: 'auto' // Automatically detect the file type
+        });
+        const imageUrl= await uploadResult.secure_url
+        
+        // console.log('image is here: ', imageUrl);
+        // Save the post to the database
+        const newPost = new Post({
+            image: imageUrl,
+            description,
+        });
+        const sp= await newPost.save()
+        console.log(sp);
+        
+    }
     
-    // Convert ArrayBuffer to Buffer
-    const buffer = Buffer.from(await file.arrayBuffer());
+    console.log(file, description);
     
-    const res= await fs.writeFile(filePath, buffer);
-    console.log(file);
-    
-    return NextResponse.json({ message: 'File uploaded at backend' , formData});
-  }
-
-  return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
+    return NextResponse.json({ message: 'Invalid request' }, { status: 400 });
 }

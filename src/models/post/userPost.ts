@@ -9,17 +9,12 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    postedBy: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-const Post = mongoose.model('post', postSchema);
+const Post = mongoose.model('posts', postSchema);
 
 export default Post

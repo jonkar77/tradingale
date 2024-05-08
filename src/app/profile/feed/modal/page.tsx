@@ -16,7 +16,6 @@ const Notes = ({ open, toggler }) => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [description, setDescription] = useState<string>('');
     const fileInputRef = useRef<HTMLInputElement>(null);
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -37,6 +36,7 @@ const Notes = ({ open, toggler }) => {
         const formData = new FormData();
         formData.append('file', fileInputRef.current?.files?.[0] as File);
         formData.append('description', description);
+        formData.append('userId', description);
 
         fetch('/api/users/post', {
             method: 'POST',

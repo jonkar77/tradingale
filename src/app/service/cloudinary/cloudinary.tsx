@@ -11,14 +11,6 @@ cloudinary.config({
 });
 
 
-const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'posts', // Optional folder in Cloudinary
-        allowed_formats: ['jpg', 'jpeg', 'png'], // Allowed image formats
-        // You can add more parameters as needed
-    } as Params & { folder: string }, // Add 'folder' property to the params object
-});
 
 const upload = multer({ storage });
 
