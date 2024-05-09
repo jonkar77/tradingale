@@ -38,7 +38,7 @@ const Notes = ({ open, toggler }) => {
         formData.append('description', description);
         formData.append('userId', description);
 
-        fetch('/api/users/post', {
+        fetch('/api/users/createPost', {
             method: 'POST',
             body: formData,
         })
@@ -58,7 +58,7 @@ const Notes = ({ open, toggler }) => {
         <div className={`fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-md flex justify-center items-center ${open ? 'block' : 'hidden'}`}>
             <div className="bg-white p-4 rounded-lg modal-container">
                 {/* Notes modal content */}
-                <h2 className="text-lg font-semibold mb-2">Write Notes</h2>
+                <h2 className="text-lg font-semibold mb-2">Shoot your thoughts</h2>
                 <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
                     <label htmlFor="fileInput" className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600">
                         Select Image

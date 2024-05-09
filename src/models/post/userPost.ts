@@ -1,20 +1,20 @@
-import mongoose, { Schema } from "mongoose";
+// src/models/post/userPost.ts
+import mongoose, { Schema, Model } from 'mongoose';
 
-const postSchema = new mongoose.Schema({
-    image: {
-        type: String, // Assuming the image will be stored as a URL
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+// Check if the model already exists before defining it
+const Post: Model<any> = mongoose.models.posts || mongoose.model('posts', new mongoose.Schema({
+  image: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+}));
 
-const Post = mongoose.model('posts', postSchema);
-
-export default Post
+export default Post;
