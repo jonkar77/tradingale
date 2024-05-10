@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Notes from './modal/page';
+import Notes from '../modal/createPost/page';
 import { CiMenuKebab } from 'react-icons/ci';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
@@ -92,7 +92,7 @@ const Post = () => {
             <div className="w-full h-[300px] bg-gray-300 rounded mb-4"></div>
             <div className="text-lg font-semibold w-[150px] h-6 bg-gray-300 rounded mb-2"></div>
             <div className="h-16 bg-gray-300 rounded"></div>
-            
+
         </div>
     ));
 
@@ -115,6 +115,7 @@ const Post = () => {
                             <div>
                                 {posts.map((post, index) => (
                                     <div key={index} className="border-b border-gray-400 pb-4 mb-4 relative">
+                                        <Link href={`feed/post/${post?._id}`}>
                                         <div className="flex items-center mb-2 justify-between">
                                             <div className="w-[250px] flex">
                                                 <img src="/user-avatar.jpg" alt="User Avatar" className="h-10 w-10 rounded-full" />
@@ -125,34 +126,19 @@ const Post = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div onClick={() => toggleDropdown(index)} className="cursor-pointer">
-                                                <CiMenuKebab />
-                                                {activePostIndex === index && (
-                                                    <div className="absolute z-50 mt-2 w-38 bg-white border border-gray-200 rounded shadow-md right-0">
-                                                        <div className="py-1">
-                                                            <Link href="/profile/dashboard">
-                                                                <span className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                                                                    Edit
-                                                                </span>
-                                                            </Link>
-                                                            <span className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                                                                Delete
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
+                                           
                                         </div>
                                         <img src={post.image} alt="Post Image" className="w-full h-[300px] object-cover mb-4" />
-                                        <p className="text-lg font-semibold">Post Title</p>
                                         <p className="text-gray-700 mb-4">{post.description}</p>
+                                        </Link>
+
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center space-x-4">
-                                            <span className="text-gray-500" onClick={() => likeClicked(index)}>
-                                                    {likeStatus[index] ?  <AiFillLike size={22} /> : <AiOutlineLike size={22} />}
+                                                <span className="text-gray-500" onClick={() => likeClicked(index)}>
+                                                    {likeStatus[index] ? <AiFillLike size={22} /> : <AiOutlineLike size={22} />}
                                                 </span>
                                                 <span className="text-gray-500" onClick={() => dislikeClicked(index)}>
-                                                    {dislikeStatus[index] ? <AiFillDislike size={22} />: <AiOutlineDislike size={22} />}
+                                                    {dislikeStatus[index] ? <AiFillDislike size={22} /> : <AiOutlineDislike size={22} />}
                                                 </span>
                                                 <span className="text-gray-500">20 comments</span>
                                             </div>
@@ -168,6 +154,7 @@ const Post = () => {
             <div>
                 <Notes open={notesOpen} toggler={closeModal} />
             </div>
+            
         </div>
     );
 };

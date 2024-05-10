@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Sidebar from '@/app/components/Sidebar/page';
 import Topline from './topline';
-import Post from './post';
+import Post from './post/page';
 import Biscuit from './biscuit';
 
 const HalfPageScrollable: React.FC = () => {

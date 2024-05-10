@@ -42,5 +42,5 @@ export async function POST(request: Request) {
     
     console.log(file, description);
     
-    return NextResponse.json({ message: 'Invalid request' }, { status: 400 });
+    return NextResponse.json({ message: 'request done' }, { status: 200 });
 }
