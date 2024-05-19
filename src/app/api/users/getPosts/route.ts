@@ -5,13 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 // connect();
 export async function GET(request: NextRequest) {
   try {
-    // Fetch all posts from the database
-    const allposts = await Post.find();
+    // Increase the timeout for Mongoose operations
+    const options = { maxTimeMS: 30000 }; // Set a timeout of 30 seconds
+    const allPosts = await Post.find({}, null, options);
 
-    return NextResponse.json(allposts, {status:200});
+    return NextResponse.json(allPosts, { status: 200 });
 
   } catch (error) {
-
     console.error("Error fetching posts:", error);
     
     return NextResponse.json(

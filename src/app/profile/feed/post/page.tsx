@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import Notes from '../modal/createPost/page';
 import { CiMenuKebab } from 'react-icons/ci';
@@ -5,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
 import { BiSolidLike } from "react-icons/bi";
+import toast from 'react-hot-toast';
 
 
 const Post = () => {
@@ -21,7 +23,6 @@ const Post = () => {
             try {
                 const response = await fetch('http://localhost:3000/api/users/getPosts');
                 if (!response.ok) {
-                    setLoad(false);
                     throw new Error('Failed to fetch data');
                 }
                 const data = await response.json();
@@ -35,13 +36,18 @@ const Post = () => {
                 });
                 setLikeStatus(initialLikeStatus);
                 setDislikeStatus(initialDislikeStatus);
+    
+                // Show success toast for data fetching
+                toast.success('Data fetched successfully');
             } catch (error) {
                 console.error('Error fetching data:', error);
+                // Show error toast for failed data fetching
+                toast.error('Failed to fetch data');
             } finally {
                 setLoad(false);
             }
         };
-
+    
         fetchData();
     }, []);
 
@@ -95,6 +101,23 @@ const Post = () => {
 
         </div>
     ));
+    const getTimeDifference = (postDate) => {
+        const currentTime = new Date();
+        const postingTime = new Date(postDate);
+        const timeDifference = currentTime - postingTime;
+        if (timeDifference < 60000) {
+            return 'Posted few moments ago';
+        } else if (timeDifference < 3600000) {
+            const minutes = Math.floor(timeDifference / 60000);
+            return `Posted ${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else if (timeDifference < 86400000) {
+            const hours = Math.floor(timeDifference / 3600000);
+            return `Posted ${hours} hour${hours > 1 ? 's' : ''} ago`;
+        } else {
+            const days = Math.floor(timeDifference / 86400000);
+            return `Posted ${days} day${days > 1 ? 's' : ''} ago`;
+        }
+    };
 
 
 
@@ -122,7 +145,7 @@ const Post = () => {
                                                 <div className="ml-3 flex">
                                                     <div>
                                                         <p className="font-semibold">John Doe</p>
-                                                        <p className="text-gray-500 text-sm">Just posted a new update!</p>
+                                                        <p className="text-gray-500 text-sm">{getTimeDifference(post.createdAt)}</p>
                                                     </div>
                                                 </div>
                                             </div>

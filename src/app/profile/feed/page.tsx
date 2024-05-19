@@ -4,6 +4,7 @@ import Sidebar from '@/app/components/Sidebar/page';
 import Topline from './topline';
 import Post from './post/page';
 import Biscuit from './biscuit';
+import { ToastContainer } from 'react-toastify';
 
 const HalfPageScrollable: React.FC = () => {
 
@@ -22,6 +23,7 @@ const HalfPageScrollable: React.FC = () => {
             <div className={`w-1/3 p-2`}>
               <Biscuit />
             </div>
+            <ToastContainer />
           </div>
         </div>
       </div>

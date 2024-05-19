@@ -12,6 +12,7 @@ const Notes = ({ open, toggler }) => {
         setDescription('');
         toggler();
     };
+    // const [post, SetPost] = useState{[]}
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [description, setDescription] = useState<string>('');
@@ -45,6 +46,10 @@ const Notes = ({ open, toggler }) => {
             .then(response => {
                 if (response.ok) {
                     console.log('File uploaded successfully');
+                    const newPost = response.json();
+                    console.log(newPost);
+                    
+                    // setPosts((prevPosts) => [newPost, ...prevPosts]);
                 } else {
                     console.error('Failed to upload file');
                 }
