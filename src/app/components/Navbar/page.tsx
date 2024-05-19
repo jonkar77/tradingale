@@ -13,7 +13,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-    const router=useRouter();
+    const router = useRouter();
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
@@ -32,11 +32,11 @@ const Navbar: React.FC<NavbarProps> = () => {
             // toast.error(error.message)
         }
     }
-     
+
     return (
-        
+
         <nav className="flex justify-between items-center py-4 px-8 bg-teal-600 text-white">
-            
+
             <div>
                 <Link href="/" className="text-2xl font-bold">TradingGale</Link>
             </div>
@@ -48,12 +48,15 @@ const Navbar: React.FC<NavbarProps> = () => {
                     <FaCalendarDays className="text-xl cursor-pointer" size={22} />
                 </Link>
                 {/* User icon */}
-                <div onClick={toggleDropdown} className="relative">
+                <div onClick={toggleDropdown} className={`relative ${isDropdownOpen ? "text-black" : ""}`}
+                >
                     <MdAccountCircle className="text-xl cursor-pointer" size={28} />
                     {/* Dropdown menu */}
                     {isDropdownOpen && (
-                        <div className="absolute right-0 z-50 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
-                            <div className="py-1">
+                        <div className="absolute right-4 z-50 mt-2 w-[120px] bg-white border border-gray-200 rounded-tl-2xl rounded-bl-2xl rounded-br-2xl shadow-md">
+                            {/* Content */}
+
+                            <div className="py-2">
                                 <Link href="/profile/dashboard">
                                     <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Profile
@@ -71,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </div>
             </div>
         </nav>
-      
+
 
     );
 };
